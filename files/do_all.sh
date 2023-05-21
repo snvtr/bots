@@ -11,7 +11,7 @@ cd ~ || exit 1
 git clone https://github.com/snvtr/antispam-bot.git
 cd ~/antispam-bot || exit 1
 sudo mv antispam-bot.service /etc/systemd/system/
-touch /home/ubuntu/antispam-bot.env
+sudo cp /tmp/antispam-bot.env ~
 sudo pip3 install -r requirements.txt
 
 PYTHON_VER=$(python3 --version) && PYTHON_VER=${PYTHON_VER%.*} && PYTHON_VER=${PYTHON_VER/ /} && PYTHON_VER=$(echo $PYTHON_VER | tr [:upper:] [:lower:])
