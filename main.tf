@@ -1,7 +1,7 @@
 provider "aws" {}
 
-module "instance" {
-  source        = "./modules/instance"
+module "do_all" {
+  source        = "./modules/ubuntu"
 }
 
 

@@ -1,0 +1,16 @@
+[Unit]
+Description=Antispambot
+After=multi-user.target
+Wants=multi-user.target
+
+[Service]
+User=ubuntu
+ExecStart=python3 -m telegram_antispam_bot
+WorkingDirectory=/home/ubuntu/antispam-bot
+Restart=always
+RestartSec=10
+TimeoutStopSec=90
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
