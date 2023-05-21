@@ -34,3 +34,6 @@ keys/id_rsa*
 .env
 */.env
 **/.env
+*.env
+*/*.env
+**/*.env
