@@ -27,15 +27,8 @@ resource "aws_instance" "ubuntu" {
   }
 
   provisioner "local-exec" {
-#    command = "ANSIBLE_HOST_KEY_CHECKING=\"False\" ansible-playbook -u ${var.ssh_user} --private-key=~/.ssh/id_rsa -i '${aws_instance.ubuntu.private_ip},' files/do_all.yml"
     command = "ANSIBLE_HOST_KEY_CHECKING=\"False\" ansible-playbook -u ubuntu --private-key=~/.ssh/id_rsa -i '${aws_instance.ubuntu.private_ip}' files/do_all.yml"
 }
-
-# script to run to finish the installation:
-  provisioner "file" {
-    source      = "files/do_all.sh"
-    destination = "/tmp/do_all.sh"
-  }
 
 # files needed to complete install:
   provisioner "file" {
