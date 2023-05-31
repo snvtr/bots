@@ -17,6 +17,7 @@ sudo pip3 install -r requirements.txt
 PYTHON_VER=$(python3 --version) && PYTHON_VER=${PYTHON_VER%.*} && PYTHON_VER=${PYTHON_VER/ /} && PYTHON_VER=$(echo $PYTHON_VER | tr [:upper:] [:lower:])
 sudo pip3 install /tmp/egenix_telegram_antispam_bot-0.4.0-py3-none-any.whl
 sudo cp challenge.py /usr/local/lib/${PYTHON_VER}/dist-packages/telegram_antispam_bot/
+sudo cp antispam_bot.py /usr/local/lib/${PYTHON_VER}/dist-packages/telegram_antispam_bot/
 
 # clone and install kaztili-bot:
 cd ~ && git clone https://github.com/snvtr/KaztiliSozdikBot.git
