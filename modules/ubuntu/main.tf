@@ -32,6 +32,16 @@ resource "aws_instance" "ubuntu" {
 
 # files needed to complete install:
   provisioner "file" {
+    source      = "files/antispam_bot.py"
+    destination = "/home/ubuntu/antispam_bot.py"
+  }
+
+  provisioner "file" {
+    source      = "files/challenge.py"
+    destination = "/home/ubuntu/challenge.py"
+  }
+
+  provisioner "file" {
     source      = "files/runcalc-bot.env"
     destination = "/tmp/runcalc-bot.env"
   }
