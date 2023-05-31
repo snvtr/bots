@@ -55,14 +55,20 @@
       key_file: "/home/ubuntu/.ssh/id_rsa"
       ssh_opts: "-o StrictHostKeyChecking=no"
 
-        # pip goes here
+  # pip goes here
+  - name: pip install 1
+    pip:
+      requirements: "/home/ubuntu/KaztiliSozdikBot/requirements.txt"
 
-  - name: copy challenge.py
-    copy:
-      src: [ "antispam-bot/challenge.py" ]
-      dest: /etc/systemd/system/
-    notify:
-      systemd_daemon_reload
+  - name: pip install 2
+    pip:
+      requirements: "/home/ubuntu/runcalc-bot/requirements.txt"
+
+  - name: pip install 3
+    command: "pip3 install /tmp/egenix_telegram_antispam_bot-0.4.0-py3-none-any.whl"
+
+  # overwrhite default scripts:
+  # ???
 
   - name: copy service files
     copy:
