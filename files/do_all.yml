@@ -36,18 +36,26 @@
     git:
       repo: git@github.com:snvtr/antispam-bot.git
       dest: /home/ubuntu/antispam-bot
+      key_file: "/home/ubuntu/.ssh/id_rsa"
+      ssh_opts: "-o StrictHostKeyChecking=no"
 
   - name: clone repo 1
     git:
       repo:
       - "https://github.com/snvtr/KaztiliSozdikBot.git"
       dest: /home/ubuntu/KaztiliSozdikBot
+      key_file: "/home/ubuntu/.ssh/id_rsa"
+      ssh_opts: "-o StrictHostKeyChecking=no"
 
   - name: clone repo 3
     git:
       repo:
       - "https://github.com/snvtr/runcalc-bot.git"
       dest: /home/ubuntu/runcalc-bot
+      key_file: "/home/ubuntu/.ssh/id_rsa"
+      ssh_opts: "-o StrictHostKeyChecking=no"
+
+        # pip goes here
 
   - name: copy challenge.py
     copy:
