@@ -26,11 +26,16 @@ resource "aws_instance" "ubuntu" {
     host        = aws_instance.ubuntu.public_ip
   }
 
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=\"False\" ansible-playbook -u ubuntu --private-key=~/.ssh/id_rsa -i '${aws_instance.ubuntu.private_ip}' files/do_all.yml"
-}
+  #provisioner "local-exec" {
+  #  command = "ANSIBLE_HOST_KEY_CHECKING=\"False\" ansible-playbook -u ubuntu --private-key=~/.ssh/id_rsa -l ${aws_instance.ubuntu.private_ip} -e h=${aws_instance.ubuntu.private_ip} files/do_all.yml"
+  #}
 
 # files needed to complete install:
+  provisioner "file" {
+    source      = "files/runcalc-bot.env"
+    destination = "/tmp/runcalc-bot.env"
+  }
+
   provisioner "file" {
     source      = "files/antispam-bot.env"
     destination = "/tmp/antispam-bot.env"
@@ -47,10 +52,9 @@ resource "aws_instance" "ubuntu" {
   }
 
   provisioner "file" {
-    source      = "files/runcalc-bot.env"
-    destination = "/tmp/runcalc-bot.env"
+    source      = "files/do_all.sh"
+    destination = "/tmp/do_all.sh"
   }
-
 
   provisioner "remote-exec" {
     inline = [

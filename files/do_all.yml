@@ -1,6 +1,6 @@
 ---
 - name: install_all
-  hosts: all
+  hosts: "{{ h }}"
   become: yes
   gather_facts: no
   tasks:
@@ -9,17 +9,45 @@
     apt:
       name: [ "python3", "git", "python3-pip" ]
       state: present
-      update: yes
+      update_cache: yes
+
+  - name: copy ssh
+    copy:
+      src: "../keys/id_rsa"
+      dest: /home/ubuntu/.ssh/
 
   - name: copy env files
     copy:
-      src: [ "files/antispam-bot.env", "files/kaztili-bot.env", "files/runcalc-bot.env" ]
+      src: "antispam-bot.env"
       dest: /home/ubuntu/
 
-  - name: clone repos
-    git:
-      repo: [ "https://github.com/snvtr/antispam-bot.git", "https://github.com/snvtr/KaztiliSozdikBot.git", "https://github.com/snvtr/runcalc-bot.git" ]
+
+  - name: copy env files 2
+    copy:
+      src: "kaztili-bot.env"
       dest: /home/ubuntu/
+
+  - name: copy env files 3
+    copy:
+      src: "runcalc-bot.env"
+      dest: /home/ubuntu/
+
+  - name: clone repo 1
+    git:
+      repo: git@github.com:snvtr/antispam-bot.git
+      dest: /home/ubuntu/antispam-bot
+
+  - name: clone repo 1
+    git:
+      repo:
+      - "https://github.com/snvtr/KaztiliSozdikBot.git"
+      dest: /home/ubuntu/KaztiliSozdikBot
+
+  - name: clone repo 3
+    git:
+      repo:
+      - "https://github.com/snvtr/runcalc-bot.git"
+      dest: /home/ubuntu/runcalc-bot
 
   - name: copy challenge.py
     copy:
