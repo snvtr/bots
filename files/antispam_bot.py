@@ -35,6 +35,7 @@ from telegram_antispam_bot.config import (
     BAN_TIME,
     REJECT_NOTICE_TIME,
     APPROVE_NOTICE_TIME,
+    MUTE_BOT_MSG,
     API_ID,
     API_HASH,
     BOT_TOKEN,
@@ -152,6 +153,7 @@ class AntispamBot(Client):
     # Time to show the rejection notice
     reject_notice_time = REJECT_NOTICE_TIME
     approve_notice_time = APPROVE_NOTICE_TIME
+    mute_bot_msg = MUTE_BOT_MSG
 
     ### Event loop
 
@@ -316,7 +318,8 @@ class AntispamBot(Client):
             return
         await self.send_message(
             self.management_group_id,
-            text)
+            text,
+            disable_notification=self.mute_bot_msg)
 
     def log(self, text=None, object=NotGiven, level=logging.INFO):
 
@@ -380,7 +383,9 @@ class AntispamBot(Client):
             await self.send_message(
                 chat_id,
                 f'Все еще жду ответа от '
-                f'"{full_name(new_member)}".'))
+                f'"{full_name(new_member)}".'),
+                disable_notification=self.mute_bot_msg
+                )
         message.reminder_sent = True
 
     async def failed_challenge(self, message, reply_to_message):
@@ -399,7 +404,9 @@ class AntispamBot(Client):
             await self.send_message(
                 message.chat.id,
                 f'Ответ неверный. Попробуй еще раз.',
-                reply_to_message_id=reply_to_message.message_id))
+                reply_to_message_id=reply_to_message.message_id,
+                disable_notification=self.mute_bot_msg
+                ))
 
     async def remove_conversation(self, message):
 
@@ -434,7 +441,9 @@ class AntispamBot(Client):
             await self.send_message(
                 message.chat.id,
                 f'Ответ верный, {full_name(new_member)}.'
-                f'Добро пожаловать в чат!'))
+                f'Добро пожаловать в чат!',
+                disable_notification=self.mute_bot_msg
+                ))
         #await self.send_message(
         #    chat_id,
         #    f'Ответ верный, {full_name(new_member)}. '
@@ -459,7 +468,9 @@ class AntispamBot(Client):
             await self.send_message(
                 chat_id,
                 f'Пользователь "{full_name(new_member)}" не ответил на вопрос вовремя. '
-                f'До новых встреч!'))
+                f'До новых встреч!',
+                disable_notification=self.mute_bot_msg
+                ))
         ban_until = (
             datetime.datetime.now() +
             datetime.timedelta(seconds=self.ban_time))
